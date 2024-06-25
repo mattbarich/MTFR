@@ -1,28 +1,31 @@
-import requests
-from bs4 import BeautifulSoup
-
-bfs = "https://www.bozemanflysupply.com/river-report/gallatin"
-
+import sys
+import argparse
+import utils.gallatin
 
 
-
-def scrape_data():
-    response = requests.get(bfs)
-    response.raise_for_status()
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    items = soup.find_all('div', class_='_1140-w-wrapper padding-top')
-    fishing_report = []
-
-    for item in items:
-        river = item.find('h1', class_='inline mobile-text-size').get_text()
-        report = item.find('div', class_='text-rich-text w-richtext').get_text()
-
-        fishing_report.append(f"{river}: {report}")
-    return '\n'.join(fishing_report)
-
-
+def main(arg):
+    arg = arg.lower()
+    if arg == "gallatin":
+        print("Gallatin River requested")
+    elif arg == "madison":
+        userChoice = input("Upper or Lower? ")
+        if userChoice.lower() == "upper":
+            print("Upper Madison requested")
+        elif userChoice.lower() == "lower":
+            print("Lower Madison requested")
+        else:
+            print("You requested an option that is not available...")
+            exit
+    elif arg == "missouri":
+        print("Missouri River requested")
+    elif arg == "yellowstone":
+        print("Yellowstone River Reported")
+    else:
+        print(f"No Fishing Report could be found... River Provided: {arg}")
 
 if __name__ == "__main__":
-    data = scrape_data()
-    print(data)
+    parser = argparse.ArgumentParser(description="Process some arguments.")
+    parser.add_argument('arg', type=str, help='Which River do you want the fishing report for?')
+    args = parser.parse_args()
+    
+    main(args.arg)
