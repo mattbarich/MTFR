@@ -1,27 +1,30 @@
-import sys
 import argparse
 import utils.gallatin
 
+def displayMenu():
+    flyShops = ["Bozeman Fly Supply", "The Rivers Edge"]
+    print("Which fly shop would you like your report from?\n")
+    for inx, option in enumerate(flyShops, start=1):
+        print(f"{inx}. {option}")
+    choice = int(input("Enter number: "))
+    return choice
 
 def main(arg):
+    bozemanFlySupply = "https://www.bozemanflysupply.com/river-report/"
+    riverEdge = "https://theriversedge.com/pages/"
+
     arg = arg.lower()
-    if arg == "gallatin":
-        print("Gallatin River requested")
-    elif arg == "madison":
-        userChoice = input("Upper or Lower? ")
-        if userChoice.lower() == "upper":
-            print("Upper Madison requested")
-        elif userChoice.lower() == "lower":
-            print("Lower Madison requested")
-        else:
-            print("You requested an option that is not available...")
-            exit
-    elif arg == "missouri":
-        print("Missouri River requested")
-    elif arg == "yellowstone":
-        print("Yellowstone River Reported")
+    userInput = displayMenu()
+    if userInput == 1:
+        url = bozemanFlySupply + arg
+        report = utils.gallatin.bozemanFlySupplyReport(url)
+        print(report)
+    elif userInput == 2:
+        url = riverEdge + arg + "-river-fishing-report"
+        utils.gallatin.riversEdgeReport(url)
     else:
-        print(f"No Fishing Report could be found... River Provided: {arg}")
+        print(f"Unexpected input... Try again.")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process some arguments.")
