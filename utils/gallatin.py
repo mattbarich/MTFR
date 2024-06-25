@@ -32,3 +32,11 @@ def riversEdgeReport(url:str) -> str:
         # fishingReport.append(f"Report: ", {report})
 
     return '\n'.join(fishingReport)
+
+def montanaAnglersReport(url: str) -> str:
+    print("In Monatana Anglers Function in gallatin.py")
+    print(url)
+
+def yellowDogReport(url: str) -> str:
+    print("In Yellow Dogs Function in gallatin.py")
+    print(url)

@@ -2,7 +2,7 @@ import argparse
 import utils.gallatin
 
 def displayMenu():
-    flyShops = ["Bozeman Fly Supply", "The Rivers Edge"]
+    flyShops = ["Bozeman Fly Supply", "The Rivers Edge", "Montana Angler", "Yellow Dog"]
     print("Which fly shop would you like your report from?\n")
     for inx, option in enumerate(flyShops, start=1):
         print(f"{inx}. {option}")
@@ -10,18 +10,26 @@ def displayMenu():
     return choice
 
 def main(arg):
-    bozemanFlySupply = "https://www.bozemanflysupply.com/river-report/"
-    riverEdge = "https://theriversedge.com/pages/"
+    bozemanFlySupplyURL = "https://www.bozemanflysupply.com/river-report/"
+    riverEdgeURL = "https://theriversedge.com/pages/"
+    montanaAnglersURL = "https://www.montanaangler.com/montana-fishing-report/"
+    yellowDogURL = "https://www.yellowdogflyfishing.com/pages/"
 
     arg = arg.lower()
     userInput = displayMenu()
     if userInput == 1:
-        url = bozemanFlySupply + arg
+        url = bozemanFlySupplyURL + arg
         report = utils.gallatin.bozemanFlySupplyReport(url)
         print(report)
     elif userInput == 2:
-        url = riverEdge + arg + "-river-fishing-report"
+        url = riverEdgeURL + arg + "-river-fishing-report"
         utils.gallatin.riversEdgeReport(url)
+    elif userInput == 3:
+        url = montanaAnglersURL + arg + "-river-fishing-report"
+        utils.gallatin.montanaAnglersReport(url)
+    elif userInput == 4:
+        url = yellowDogURL + arg + '-river-fishing-report'
+        utils.gallatin.yellowDogReport(url)
     else:
         print(f"Unexpected input... Try again.")
 
