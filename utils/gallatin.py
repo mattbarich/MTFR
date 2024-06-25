@@ -18,15 +18,17 @@ def bozemanFlySupplyReport(url:str) -> str:
 
 
 def riversEdgeReport(url:str) -> str:
-   print("In Rivers Edge Function in gallatin.py")
+    print("In Rivers Edge Function in gallatin.py")
+    response = requests.get(url)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, 'html.parser')
 
-'''
-gallatin_urls = ["https://www.bozemanflysupply.com/river-report/gallatin", 
-                 "https://theriversedge.com/pages/gallatin-river-fishing-report",
-                 "https://www.yellowdogflyfishing.com/pages/gallatin-river-fishing-report",
-                 "https://www.montanaangler.com/montana-fishing-report/gallatin-river-fishing-report"]
+    items = soup.find_all('div', class_='rich-text__text featured_text')
+    fishingReport = []
 
-def getRiverReport(river):
-    for url in gallatin_urls:
-        utils.process_requests.scrape_data(url)
-'''
+    for item in items:
+        report = item.get_text()
+        print("Report given: " + report + "\n")
+        # fishingReport.append(f"Report: ", {report})
+
+    return '\n'.join(fishingReport)
