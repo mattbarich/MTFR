@@ -1,5 +1,4 @@
 import requests
-import requests
 from bs4 import BeautifulSoup
 
 def bozemanFlySupplyReport(url:str) -> str:
@@ -24,14 +23,11 @@ def riversEdgeReport(url:str) -> str:
     soup = BeautifulSoup(response.text, 'html.parser')
 
     items = soup.find_all('div', class_='rich-text__text featured_text')
-    fishingReport = []
+    report = "Report: "
+    report = report + items[0].get_text()
 
-    for item in items:
-        report = item.get_text()
-        print("Report given: " + report + "\n")
-        # fishingReport.append(f"Report: ", {report})
 
-    return '\n'.join(fishingReport)
+    return report
 
 def montanaAnglersReport(url: str) -> str:
     print("In Monatana Anglers Function in gallatin.py")

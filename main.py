@@ -23,10 +23,12 @@ def main(arg):
         print(report)
     elif userInput == 2:
         url = riverEdgeURL + arg + "-river-fishing-report"
-        utils.gallatin.riversEdgeReport(url)
+        report = utils.gallatin.riversEdgeReport(url)
+        print(report)
     elif userInput == 3:
         url = montanaAnglersURL + arg + "-river-fishing-report"
-        utils.gallatin.montanaAnglersReport(url)
+        report = utils.gallatin.montanaAnglersReport(url)
+        print(report)
     elif userInput == 4:
         url = yellowDogURL + arg + '-river-fishing-report'
         utils.gallatin.yellowDogReport(url)
