@@ -45,7 +45,9 @@ def lowerMadisonMenu():
     return choice
 
 def yellowstoneMenu():
-    flyShops = ["Bozeman Fly Supply", 
+    flyShops = ["Yellowstone Angler",
+                "Dan Bailys"
+                "Bozeman Fly Supply", 
                 "The Rivers Edge", 
                 "Montana Angler", 
                 "Yellow Dog"]
@@ -55,7 +57,8 @@ def yellowstoneMenu():
     return choice
 
 def missouriMenu():
-    flyShops = ["Bozeman Fly Supply", 
+    flyShops = ["Headhunters",
+                "Cross Current",
                 "The Rivers Edge", 
                 "Montana Angler", 
                 "Yellow Dog"]
