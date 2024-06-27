@@ -6,7 +6,8 @@ def printMenu(options):
     return choice
 
 def upperOrLower():
-    section = ["Upper", "lower"]
+    section = ["Upper", 
+               "Lower"]
     print("What section of the Madison?\n")
     choice = printMenu(section)
 
