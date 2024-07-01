@@ -16,9 +16,9 @@ def bozemanFlySupplyReport(url:str) -> str:
 
         for item in items:
             report = item.find('div', class_='text-rich-text w-richtext').get_text()
-
-            fishing_report.append(f"Report: {report}")
-        return '\n'.join(fishing_report)
+            formatted_report = [sentence.strip() for sentence in re.split(r'[.!?]', report) if sentence]
+            fishing_report.extend(formatted_report)
+        return '.\n'.join(fishing_report)
     except Exception as e:
         return f"Error Parsing content: {e}"
 
@@ -35,8 +35,8 @@ def riversEdgeReport(url:str) -> str:
 
         items = soup.find_all('div', class_='rich-text__text featured_text')
         temp = items[0].get_text().split('.')
-       # temp = temp.split('.')
         fishing_report = []
+
         for item in temp:
             item = item.strip()
             fishing_report.append(f"{item}.")
