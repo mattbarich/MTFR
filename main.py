@@ -29,7 +29,8 @@ def gallatin(river):
         print(report)
     elif userInput == 4:
         url = yellowDogURL + river + end
-        utils.gallatin.yellowDogReport(url)
+        report = utils.gallatin.yellowDogReport(url)
+        print(report)
     else:
         print(f"Unexpected input... Try again.")
 
@@ -95,10 +96,10 @@ def missouri(river):
 
 def main():
     parser = argparse.ArgumentParser(description="Process some arguments.")
-    parser.add_argument('arg', type=str, help='Which River do you want the fishing report for?')
+    parser.add_argument('river', type=str, help='Which River do you want the fishing report for?')
     
     args = parser.parse_args()
-    river = args.arg.lower()
+    river = args.river.lower()
 
     functions = {
         "gallatin": gallatin,
