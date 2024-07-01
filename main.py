@@ -25,7 +25,8 @@ def gallatin(river):
         print(report)
     elif userInput == 3:
         url = montanaAnglersURL + river + end
-        utils.gallatin.montanaAnglersReport(url)
+        report = utils.gallatin.montanaAnglersReport(url)
+        print(report)
     elif userInput == 4:
         url = yellowDogURL + river + end
         utils.gallatin.yellowDogReport(url)

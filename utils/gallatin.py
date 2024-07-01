@@ -1,37 +1,74 @@
 import requests
 from bs4 import BeautifulSoup
+import re
 
 def bozemanFlySupplyReport(url:str) -> str:
-    response = requests.get(url)
-    response.raise_for_status()
-    soup = BeautifulSoup(response.text, 'html.parser')
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        return f"Error fetching the URL: {e}"
+    
+    try:
+        soup = BeautifulSoup(response.text, 'html.parser')
 
-    items = soup.find_all('div', class_='_1140-w-wrapper padding-top')
-    fishing_report = []
+        items = soup.find_all('div', class_='_1140-w-wrapper padding-top')
+        fishing_report = []
 
-    for item in items:
-        report = item.find('div', class_='text-rich-text w-richtext').get_text()
+        for item in items:
+            report = item.find('div', class_='text-rich-text w-richtext').get_text()
 
-        fishing_report.append(f"Report: {report}")
-    return '\n'.join(fishing_report)
+            fishing_report.append(f"Report: {report}")
+        return '\n'.join(fishing_report)
+    except Exception as e:
+        return f"Error Parsing content: {e}"
 
 
 def riversEdgeReport(url:str) -> str:
-    print("In Rivers Edge Function in gallatin.py")
-    response = requests.get(url)
-    response.raise_for_status()
-    soup = BeautifulSoup(response.text, 'html.parser')
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        return f"Error fetching the URL: {e}"
 
-    items = soup.find_all('div', class_='rich-text__text featured_text')
-    report = "Report: "
-    report = report + items[0].get_text()
+    try:
+        soup = BeautifulSoup(response.text, 'html.parser')
 
+        items = soup.find_all('div', class_='rich-text__text featured_text')
+        report = "Report: "
+        report = report + items[0].get_text()
+        return report
+    except Exception as e:
+        return f"Error Parsing content: {e}"
 
-    return report
 
 def montanaAnglersReport(url: str) -> str:
-    print("In Monatana Anglers Function in gallatin.py")
-    print(url)
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        return f"Error fetching the URL: {e}"
+    
+    try:
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Extract paragraphs
+        paragraphs = soup.find_all('p', {'dir': 'ltr'})
+        all_text = [p.get_text(strip=True) for p in paragraphs]
+        paragraph_text = '\n'.join(all_text)
+        
+        # Search for dates using a regular expression
+        # Example regex for dates in formats like "June 24, 2023" or "24 June 2023"
+        date_pattern = re.compile(r'\b(?:\d{1,2}\s)?(?:January|February|March|April|May|June|July|August|September|October|November|December)\s\d{1,2},?\s\d{4}\b')
+        page_text = soup.get_text()
+        date_match = date_pattern.search(page_text)
+        
+        date_text = date_match.group(0) if date_match else "No date found."
+
+        return f"Date: {date_text}\n\nParagraphs:\n{paragraph_text}"
+    except Exception as e:
+        return f"Error Parsing content: {e}"
+
 
 def yellowDogReport(url: str) -> str:
     print("In Yellow Dogs Function in gallatin.py")
