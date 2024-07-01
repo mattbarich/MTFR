@@ -9,9 +9,8 @@ def upperOrLower():
     section = ["Upper", 
                "Lower"]
     print("What section of the Madison?\n")
-    choice = printMenu(section)
 
-    return choice
+    return printMenu(section)
 
 def gallatinMenu():
     flyShops = ["Bozeman Fly Supply", 
@@ -19,9 +18,8 @@ def gallatinMenu():
                 "Montana Angler", 
                 "Yellow Dog"]
     print("Which fly shop would you like your report from?\n")
-    choice = printMenu(flyShops)
 
-    return choice
+    return printMenu(flyShops)
 
 def upperMadisonMenu():
     flyShops = ["Bozeman Fly Supply", 
@@ -31,18 +29,17 @@ def upperMadisonMenu():
                 "The Tackle Shop", 
                 "Madison River Fishing Company"]
     print("Which fly shop would you like your report from?\n")
-    choice = printMenu(flyShops)
 
-    return choice
+    return printMenu(flyShops)
+
 def lowerMadisonMenu():
     flyShops = ["Bozeman Fly Supply", 
                 "The Rivers Edge", 
                 "Montana Angler", 
                 "Yellow Dog"]
     print("Which fly shop would you like your report from?\n")
-    choice = printMenu(flyShops)
 
-    return choice
+    return printMenu(flyShops)
 
 def yellowstoneMenu():
     flyShops = ["Yellowstone Angler",
@@ -52,9 +49,8 @@ def yellowstoneMenu():
                 "Montana Angler", 
                 "Yellow Dog"]
     print("Which fly shop would you like your report from?\n")
-    choice = printMenu(flyShops)
 
-    return choice
+    return printMenu(flyShops)
 
 def missouriMenu():
     flyShops = ["Headhunters",
@@ -63,6 +59,5 @@ def missouriMenu():
                 "Montana Angler", 
                 "Yellow Dog"]
     print("Which fly shop would you like your report from?\n")
-    choice = printMenu(flyShops)
 
-    return choice
+    return printMenu(flyShops)

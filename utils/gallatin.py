@@ -11,7 +11,6 @@ def bozemanFlySupplyReport(url:str) -> str:
     
     try:
         soup = BeautifulSoup(response.text, 'html.parser')
-
         items = soup.find_all('div', class_='_1140-w-wrapper padding-top')
         fishing_report = []
 
@@ -35,9 +34,14 @@ def riversEdgeReport(url:str) -> str:
         soup = BeautifulSoup(response.text, 'html.parser')
 
         items = soup.find_all('div', class_='rich-text__text featured_text')
-        report = "Report: "
-        report = report + items[0].get_text()
-        return report
+        temp = items[0].get_text().split('.')
+       # temp = temp.split('.')
+        fishing_report = []
+        for item in temp:
+            item = item.strip()
+            fishing_report.append(f"{item}.")
+
+        return '\n'.join(fishing_report)
     except Exception as e:
         return f"Error Parsing content: {e}"
 
@@ -79,8 +83,8 @@ def yellowDogReport(url: str) -> str:
         soup = BeautifulSoup(response.content, 'html.parser')
         
         # Extract the date and fishing report from the HTML
-        date = soup.find('div', class_='reportContent__top')  # Replace with the actual class or identifier
-        report = soup.find('div', class_='reportContent__text')  # Replace with the actual class or identifier
+        date = soup.find('div', class_='reportContent__top')  
+        report = soup.find('div', class_='reportContent__text')  
         
         # Check if both date and report were found
         if date and report:
