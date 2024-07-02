@@ -103,12 +103,11 @@ def yellowDogReport(url: str) -> str:
         date = soup.find('div', class_='reportContent__date')  
         report = soup.find('div', class_='reportContent__text')  
 
-        fishing_report = []
-        fishing_report.append(date.get_text(strip=True))
+        date_text = date.get_text(strip=True)
+        report_text = report.get_text(strip=True)
 
-        report = report.get_text(strip=True)
-        fishing_report.append(report)
-        return '\n'.join(fishing_report)
+        fishing_report = f"Date: {date_text}\n\nFishing Report:\n{report_text}"
+        return fishing_report
         
 
     
