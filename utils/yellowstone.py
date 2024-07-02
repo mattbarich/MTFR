@@ -2,7 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+def yellowstoneAnglerReport(url:str) -> str:
+    print(f"In Yellowstone angler Function. URL to report:\n {url}")
+
+def danBailysReport(url:str) -> str:
+    print(f"In Dan Bailys Function. URL to report:\n {url}")
+
+
 def bozemanFlySupplyReport(url:str) -> str:
+
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -38,8 +46,7 @@ def bozemanFlySupplyReport(url:str) -> str:
         return '.\n'.join(fishing_report)
     except Exception as e:
         return f"Error Parsing content: {e}"
-
-
+    
 def riversEdgeReport(url:str) -> str:
     try:
         response = requests.get(url)
@@ -61,8 +68,7 @@ def riversEdgeReport(url:str) -> str:
         return '\n'.join(fishing_report)
     except Exception as e:
         return f"Error Parsing content: {e}"
-
-
+    
 def montanaAnglersReport(url: str) -> str:
     try:
         response = requests.get(url)
@@ -88,8 +94,7 @@ def montanaAnglersReport(url: str) -> str:
         return f"Date: {date_text}\n\n{paragraph_text}"
     except Exception as e:
         return f"Error Parsing content: {e}"
-
-
+    
 def yellowDogReport(url: str) -> str:
     try:
         # Send a GET request to the URL

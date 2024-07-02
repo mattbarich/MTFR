@@ -43,7 +43,7 @@ def lowerMadisonMenu():
 
 def yellowstoneMenu():
     flyShops = ["Yellowstone Angler",
-                "Dan Bailys"
+                "Dan Bailys",
                 "Bozeman Fly Supply", 
                 "The Rivers Edge", 
                 "Montana Angler", 
