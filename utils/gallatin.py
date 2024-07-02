@@ -11,9 +11,26 @@ def bozemanFlySupplyReport(url:str) -> str:
     
     try:
         soup = BeautifulSoup(response.text, 'html.parser')
+
+         # Extract date from <h> tags using regex
+        date_pattern = re.compile(r'\b(?:\d{1,2}\s)?(?:January|February|March|April|May|June|July|August|September|October|November|December)\s\d{1,2},?\s\d{4}\b')
+        date_text = "No date found."
+
+        for header_tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+            headers = soup.find_all(header_tag)
+            for header in headers:
+                header_text = header.get_text(strip=True)
+                date_match = date_pattern.search(header_text)
+                if date_match:
+                    date_text = date_match.group(0)
+                    break
+            if date_text != "No date found.":
+                break
+
         items = soup.find_all('div', class_='_1140-w-wrapper padding-top')
         fishing_report = []
 
+        fishing_report.append(date_text)
         for item in items:
             report = item.find('div', class_='text-rich-text w-richtext').get_text()
             formatted_report = [sentence.strip() for sentence in re.split(r'[.!?]', report) if sentence]
@@ -68,7 +85,7 @@ def montanaAnglersReport(url: str) -> str:
         
         date_text = date_match.group(0) if date_match else "No date found."
 
-        return f"Date: {date_text}\n\nReport:\n{paragraph_text}"
+        return f"Date: {date_text}\n\n{paragraph_text}"
     except Exception as e:
         return f"Error Parsing content: {e}"
 
@@ -83,17 +100,17 @@ def yellowDogReport(url: str) -> str:
         soup = BeautifulSoup(response.content, 'html.parser')
         
         # Extract the date and fishing report from the HTML
-        date = soup.find('div', class_='reportContent__top')  
+        date = soup.find('div', class_='reportContent__date')  
         report = soup.find('div', class_='reportContent__text')  
+
+        fishing_report = []
+        fishing_report.append(date.get_text(strip=True))
+
+        report = report.get_text(strip=True)
+        fishing_report.append(report)
+        return '\n'.join(fishing_report)
         
-        # Check if both date and report were found
-        if date and report:
-            formatted_report = f"Fishing Report for {date.get_text(strip=True)}:\n\n{report.get_text(strip=True)}"
-            return formatted_report
-        else:
-            return {
-                'error': 'Could not find the date or the fishing report on the page.'
-            }
+
     
     except requests.exceptions.RequestException as e:
         return {
