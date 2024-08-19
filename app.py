@@ -46,6 +46,11 @@ yellowstone_report_functions = {
 # Initalize App
 app = Flask(__name__)
 
+# Dictionary for approved phone numbers.
+approved_phone_numbers = {
+    "+11112223333" : "User1",
+    "+12223334444" : "user2"
+}
 
 #Default Route (May not need once connected to Twilio)
 @app.route("/", methods=['GET', 'POST'])
@@ -64,11 +69,17 @@ def test():
 
     resp = MessagingResponse()
 
-    if incoming_sms == "hello":
-        response_msg = f"Hello {from_number}!!\n"
+    if incoming_sms == "hello" and from_number in approved_phone_numbers:
+        response_msg = f"Welcome {approved_phone_numbers[from_number]}!!\n"
+        response_msg = response_msg + utils.functions.print_hello_msg() + utils.functions.print_sms_rates()
         resp.message(response_msg)
+       
+    elif incoming_sms != "hello" and from_number in approved_phone_numbers:
+        response_msg = processMessage(incoming_sms)
+        resp.message(response_msg)
+
     else:
-        response_msg = utils.functions.random_message_return()
+        response_msg = utils.functions.handle_invalid_requests()
         resp.message(response_msg)
 
     return str(resp)
