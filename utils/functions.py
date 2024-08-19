@@ -26,7 +26,11 @@ def print_hello_msg() -> str:
     return print_msg
 
 def handle_invalid_requests() -> str:
-    return "Could not process request..."
+    message = ("\nCould not process request...\n"
+               "Usage: river flyshop\n"
+               "EX: Gallatin Bozeman Fly Supply\n"
+               )
+    return message
 
 def random_message_return() -> str:
     statements = [

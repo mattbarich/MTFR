@@ -107,6 +107,14 @@ def processMessage(message: str) -> str:
                 return report
         return utils.functions.handle_invalid_requests()
     
+    elif "madison" in message:
+        if "upper" in message:
+            return "Upper madison requested"
+        elif "lower" in message:
+            return "lower madison requested"
+        else:
+            return utils.functions.handle_invalid_requests()
+    
     return utils.functions.handle_invalid_requests()
 
 
