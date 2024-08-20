@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify
 from twilio.twiml.messaging_response import MessagingResponse
 
 # Import helper functions
-import utils.functions
+import utils.print_functions
 import utils.gallatin
 import utils.yellowstone
 
@@ -58,9 +58,9 @@ def home():
     incoming_sms = request.form.get('Body')
     incoming_sms = str(incoming_sms).lower()
     if incoming_sms != 'hello':
-        return utils.functions.handle_invalid_requests()
+        return utils.print_functions.handle_invalid_requests()
     
-    return utils.functions.print_hello_msg()
+    return utils.print_functions.print_hello_msg()
 
 @app.route("/sms", methods=['GET', 'POST'])
 def test():
@@ -71,7 +71,7 @@ def test():
 
     if incoming_sms == "hello" and from_number in approved_phone_numbers:
         response_msg = f"Welcome {approved_phone_numbers[from_number]}!!\n"
-        response_msg = response_msg + utils.functions.print_hello_msg() + utils.functions.print_sms_rates()
+        response_msg = response_msg + utils.print_functions.print_hello_msg() + utils.print_functions.print_sms_rates()
         resp.message(response_msg)
        
     elif incoming_sms != "hello" and from_number in approved_phone_numbers:
@@ -79,7 +79,7 @@ def test():
         resp.message(response_msg)
 
     else:
-        response_msg = utils.functions.handle_invalid_requests()
+        response_msg = utils.print_functions.random_message_return()  + utils.print_functions.print_sms_rates()
         resp.message(response_msg)
 
     return str(resp)
@@ -93,10 +93,10 @@ def processMessage(message: str) -> str:
                 url = gallatin_urls[key]
                 report_function = gallatin_report_functions[key]
                 report = report_function(url)
-                return report
+                return report  + utils.print_functions.print_sms_rates()
         
         # If no matching keyword is found, return a default message
-        return utils.functions.handle_invalid_requests()
+        return utils.print_functions.handle_invalid_requests()  + utils.print_functions.print_sms_rates()
     
     elif "yellowstone" in message:
         for key in yellowstone_urls:
@@ -104,8 +104,8 @@ def processMessage(message: str) -> str:
                 url = yellowstone_urls[key]
                 report_function = yellowstone_report_functions[key]
                 report = report_function(url)
-                return report
-        return utils.functions.handle_invalid_requests()
+                return report  + utils.print_functions.print_sms_rates()
+        return utils.print_functions.handle_invalid_requests()  + utils.print_functions.print_sms_rates()
     
     elif "madison" in message:
         if "upper" in message:
@@ -113,9 +113,9 @@ def processMessage(message: str) -> str:
         elif "lower" in message:
             return "lower madison requested"
         else:
-            return utils.functions.handle_invalid_requests()
+            return utils.print_functions.handle_invalid_requests() + utils.print_functions.print_sms_rates()
     
-    return utils.functions.handle_invalid_requests()
+    return utils.print_functions.random_message_return() + utils.print_functions.print_sms_rates()
 
 
 

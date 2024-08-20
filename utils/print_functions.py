@@ -25,6 +25,9 @@ def print_hello_msg() -> str:
         '''
     return print_msg
 
+def print_sms_rates() -> str:
+    return "\nMsg and Data rates may apply.\n"
+
 def handle_invalid_requests() -> str:
     message = ("\nCould not process request...\n"
                "Usage: river flyshop\n"
