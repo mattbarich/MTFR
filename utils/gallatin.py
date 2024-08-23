@@ -48,7 +48,7 @@ def bozemanFlySupplyReport(url:str) -> str:
 
 def riversEdgeReport(url:str) -> str:
     try:
-        response = requests.get(url, headers=BASE_HEADERS)
+        response = requests.get(url)
         response.raise_for_status()
     except requests.RequestException as e:
         return f"Error fetching the URL: {e}"
@@ -67,7 +67,6 @@ def riversEdgeReport(url:str) -> str:
         return '\n'.join(fishing_report)
     except Exception as e:
         return f"Error Parsing content: {e}"
-
 
 def montanaAnglersReport(url: str) -> str:
     try:

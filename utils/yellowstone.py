@@ -56,7 +56,7 @@ def bozemanFlySupplyReport(url:str) -> str:
     
 def riversEdgeReport(url:str) -> str:
     try:
-        response = requests.get(url, headers=BASE_HEADERS)
+        response = requests.get(url)
         response.raise_for_status()
     except requests.RequestException as e:
         return f"Error fetching the URL: {e}"
