@@ -56,6 +56,7 @@ def test():
     incoming_sms = request.form['Body'].strip().lower()
     log_message('info', from_number, incoming_sms, '/sms')
 
+
     resp = MessagingResponse()    
     try:
         if incoming_sms == "hello" and from_number in config.approved_phone_numbers:
